@@ -277,7 +277,7 @@ export function AdminCategories() {
             ))}
           </div>
         ) : categories.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+          <div className="flex flex-col items-center justify-center py-16 text-white/30">
             <Tags className="h-10 w-10 mb-3 opacity-40" />
             <p className="text-sm">No categories yet</p>
             <Button variant="link" className="mt-2 text-primary" onClick={openCreateDialog}>
@@ -345,8 +345,8 @@ export function AdminCategories() {
                         variant="secondary"
                         className={
                           category.isActive
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-muted text-muted-foreground'
+                            ? 'bg-green-900/30 text-green-400 border border-green-500/20'
+                            : 'bg-white/5 text-white/40'
                         }
                       >
                         {category.isActive ? 'Active' : 'Inactive'}

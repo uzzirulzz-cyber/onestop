@@ -32,21 +32,21 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Card
-      className="product-card group cursor-pointer border-border/60 overflow-hidden h-full flex flex-col"
+      className="product-card group cursor-pointer overflow-hidden h-full flex flex-col border-white/[0.08] bg-white/[0.03]"
       onClick={() => {
         setSelectedProductId(product.id);
         setStorefrontPage('product-detail');
       }}
     >
       {/* Image area */}
-      <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center overflow-hidden">
+      <div className="relative h-48 sm:h-56 bg-[#0C1220] flex items-center justify-center overflow-hidden">
         {product.isFeatured && (
-          <Badge className="absolute top-2 left-2 bg-amber-500 text-white text-[10px] px-1.5 py-0 z-10">
+          <Badge className="absolute top-2 left-2 bg-[var(--gold)] text-black text-[10px] px-1.5 py-0 z-10 font-bold">
             <Star className="w-2.5 h-2.5 mr-0.5" /> Featured
           </Badge>
         )}
         {discount > 0 && (
-          <Badge className="absolute top-2 right-2 bg-red-500 text-white text-[10px] px-1.5 py-0 z-10">
+          <Badge className="absolute top-2 right-2 bg-[#EF4444] text-white text-[10px] px-1.5 py-0 z-10 font-bold">
             -{discount}%
           </Badge>
         )}
@@ -54,42 +54,46 @@ export function ProductCard({ product }: ProductCardProps) {
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="text-4xl font-bold text-primary/20">
+          <div className="text-5xl font-black text-white/[0.06]">
             {product.name.charAt(0)}
           </div>
         )}
+        {/* Bottom gradient overlay */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#05070D] to-transparent pointer-events-none" />
       </div>
 
-      <CardContent className="p-3 flex flex-col flex-1 gap-1.5">
+      <CardContent className="p-4 flex flex-col flex-1 gap-1.5">
         {product.category && (
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
+          <span className="text-[10px] text-white/40 uppercase tracking-wider font-medium">
             {product.category.name}
           </span>
         )}
-        <h3 className="font-semibold text-sm leading-tight line-clamp-2">{product.name}</h3>
+        <h3 className="font-semibold text-sm leading-tight line-clamp-2 text-white group-hover:text-[var(--gold)] transition-colors">
+          {product.name}
+        </h3>
 
-        <div className="mt-auto flex items-end justify-between pt-1">
+        <div className="mt-auto flex items-end justify-between pt-2">
           <div>
-            <p className="font-bold text-primary text-base">Rs. {product.price.toLocaleString()}</p>
+            <p className="font-extrabold text-[var(--gold)] text-lg leading-none">Rs. {product.price.toLocaleString()}</p>
             {product.compareAtPrice && (
-              <p className="text-xs text-muted-foreground line-through">Rs. {product.compareAtPrice.toLocaleString()}</p>
+              <p className="text-xs text-white/30 line-through mt-0.5">Rs. {product.compareAtPrice.toLocaleString()}</p>
             )}
           </div>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          <div className="flex items-center gap-1 text-xs">
             {product.stock > 0 ? (
-              <span className="text-green-600 font-medium">In Stock</span>
+              <span className="text-[#10B981] font-medium">In Stock</span>
             ) : (
-              <span className="text-red-500 font-medium">Out of Stock</span>
+              <span className="text-[#EF4444] font-medium">Out of Stock</span>
             )}
           </div>
         </div>
 
         <Button
           size="sm"
-          className="w-full mt-1 text-xs"
+          className="w-full mt-2 text-xs font-bold rounded-full bg-[var(--gold)] text-black hover:bg-[var(--gold-light)] hover:shadow-[0_10px_25px_rgba(245,180,0,0.2)] transition-all"
           disabled={product.stock <= 0}
           onClick={(e) => {
             e.stopPropagation();

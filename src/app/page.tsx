@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useViewStore, usePageStore } from '@/stores';
 import { StoreHeader } from '@/components/storefront/store-header';
-import { CartSheet } from '@/components/storefront/store-cart';
+import { CartSheet } from '@/components/storefront/cart-sheet';
 import { StoreFooter } from '@/components/storefront/store-footer';
 import { HeroSection } from '@/components/storefront/hero-section';
 import { StorefrontHome } from '@/components/storefront/storefront-home';
@@ -35,7 +35,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col">
       <StoreHeader />
       <CartSheet />
       <main className="flex-1">

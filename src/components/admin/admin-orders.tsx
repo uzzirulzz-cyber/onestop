@@ -56,18 +56,15 @@ interface Order {
 const STATUS_OPTIONS = ['pending', 'processing', 'completed', 'cancelled', 'delivered'] as const;
 
 const statusColorMap: Record<string, string> = {
-  pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-  processing: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-  completed: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-  cancelled: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  delivered: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+  pending: 'bg-yellow-900/30 text-yellow-400 border border-yellow-500/20',
+  processing: 'bg-blue-900/30 text-blue-400 border border-blue-500/20',
+  completed: 'bg-green-900/30 text-green-400 border border-green-500/20',
+  cancelled: 'bg-red-900/30 text-red-400 border border-red-500/20',
+  delivered: 'bg-green-900/30 text-green-400 border border-green-500/20',
 };
 
 function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount);
+  return `Rs. ${amount.toLocaleString()}`;
 }
 
 function formatDate(dateStr: string): string {
@@ -177,7 +174,7 @@ export function AdminOrders() {
             ))}
           </div>
         ) : orders.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+          <div className="flex flex-col items-center justify-center py-16 text-white/30">
             <ShoppingBag className="h-10 w-10 mb-3 opacity-40" />
             <p className="text-sm">No orders found</p>
           </div>

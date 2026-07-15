@@ -45,18 +45,15 @@ interface LowStockProduct {
 }
 
 const statusColorMap: Record<string, string> = {
-  pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-  processing: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-  completed: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-  cancelled: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  delivered: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+  pending: 'bg-yellow-900/30 text-yellow-400 border border-yellow-500/20',
+  processing: 'bg-blue-900/30 text-blue-400 border border-blue-500/20',
+  completed: 'bg-green-900/30 text-green-400 border border-green-500/20',
+  cancelled: 'bg-red-900/30 text-red-400 border border-red-500/20',
+  delivered: 'bg-green-900/30 text-green-400 border border-green-500/20',
 };
 
 function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount);
+  return `Rs. ${amount.toLocaleString()}`;
 }
 
 function formatDate(dateStr: string): string {
@@ -148,7 +145,7 @@ export function AdminDashboard() {
                       <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
                       <p
                         className={`text-2xl font-bold ${
-                          stat.highlight ? 'text-yellow-600 dark:text-yellow-400' : 'text-foreground'
+                          stat.highlight ? 'text-yellow-400' : 'text-white'
                         } ${stat.isText ? 'text-xl' : ''}`}
                       >
                         {stat.value}
@@ -158,8 +155,8 @@ export function AdminDashboard() {
                     <div
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
                         stat.highlight
-                          ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400'
-                          : 'bg-primary/10 text-primary'
+                          ? 'bg-yellow-900/30 text-yellow-400'
+                          : 'bg-[#0057D9]/20 text-[#3A8DFF]'
                       }`}
                     >
                       {stat.icon}
@@ -228,7 +225,7 @@ export function AdminDashboard() {
                 </Table>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+              <div className="flex flex-col items-center justify-center py-12 text-white/30">
                 <ShoppingBag className="h-10 w-10 mb-3 opacity-40" />
                 <p className="text-sm">No orders yet</p>
               </div>
@@ -283,7 +280,7 @@ export function AdminDashboard() {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+              <div className="flex flex-col items-center justify-center py-12 text-white/30">
                 <Package className="h-10 w-10 mb-3 opacity-40" />
                 <p className="text-sm">All products in stock</p>
               </div>

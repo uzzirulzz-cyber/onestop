@@ -106,10 +106,7 @@ const productSchema = z.object({
 type ProductFormValues = z.infer<typeof productSchema>;
 
 function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount);
+  return `Rs. ${amount.toLocaleString()}`;
 }
 
 // --- Component ---
@@ -379,7 +376,7 @@ export function AdminProducts() {
             ))}
           </div>
         ) : products.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+          <div className="flex flex-col items-center justify-center py-16 text-white/30">
             <Package className="h-10 w-10 mb-3 opacity-40" />
             <p className="text-sm">No products found</p>
             <Button variant="link" className="mt-2 text-primary" onClick={openCreateDialog}>
@@ -422,7 +419,7 @@ export function AdminProducts() {
                               {product.name}
                             </p>
                             {product.isFeatured && (
-                              <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 shrink-0" />
+                              <Star className="h-3.5 w-3.5 fill-[var(--gold)] text-[var(--gold)] shrink-0" />
                             )}
                           </div>
                           {product.compareAtPrice && (
@@ -443,10 +440,10 @@ export function AdminProducts() {
                       <span
                         className={`text-sm font-medium ${
                           product.stock <= 10
-                            ? 'text-destructive'
+                            ? 'text-[#EF4444]'
                             : product.stock <= 25
-                              ? 'text-yellow-600 dark:text-yellow-400'
-                              : 'text-foreground'
+                              ? 'text-yellow-400'
+                              : 'text-white'
                         }`}
                       >
                         {product.stock} {product.unit}
@@ -466,8 +463,8 @@ export function AdminProducts() {
                         variant="secondary"
                         className={
                           product.isActive
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-muted text-muted-foreground'
+                            ? 'bg-green-900/30 text-green-400 border border-green-500/20'
+                            : 'bg-white/5 text-white/40'
                         }
                       >
                         {product.isActive ? 'Active' : 'Inactive'}
