@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from '@/components/ui/sheet';
-import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, Crown } from 'lucide-react';
 
 export function CartSheet() {
   const { items, isCartOpen, setCartOpen, removeItem, updateQuantity, getTotal, clearCart } = useCartStore();
@@ -19,44 +19,49 @@ export function CartSheet() {
 
   return (
     <Sheet open={isCartOpen} onOpenChange={setCartOpen}>
-      <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-[#0C1220] border-l border-white/[0.08]">
-        <SheetHeader className="p-4 pb-2">
-          <SheetTitle className="flex items-center gap-2 text-white">
-            <ShoppingBag className="w-5 h-5 text-[var(--gold)]" />
-            Your Cart ({items.length} items)
+      <SheetContent className="w-full sm:max-w-md flex flex-col p-0 bg-[#0A0E1A] border-l border-white/[0.06]">
+        <SheetHeader className="p-5 pb-3 border-b border-white/[0.06]">
+          <SheetTitle className="flex items-center gap-2.5 text-white text-[15px] font-semibold">
+            <div className="w-8 h-8 rounded-lg bg-[#F5B400]/10 flex items-center justify-center">
+              <ShoppingBag className="w-4 h-4 text-[#F5B400]" />
+            </div>
+            Your Cart
+            <span className="text-white/30 font-normal text-[13px]">({items.length} items)</span>
           </SheetTitle>
         </SheetHeader>
 
         {items.length === 0 ? (
           <div className="flex-1 flex items-center justify-center p-8">
             <div className="text-center">
-              <ShoppingBag className="w-12 h-12 text-white/10 mx-auto mb-3" />
-              <p className="text-white/50 font-medium">Your cart is empty</p>
-              <p className="text-sm text-white/30 mt-1">Add some items to get started</p>
+              <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center mx-auto mb-4">
+                <ShoppingBag className="w-7 h-7 text-white/10" />
+              </div>
+              <p className="text-white/40 font-medium text-[15px]">Your cart is empty</p>
+              <p className="text-[13px] text-white/20 mt-1">Add some items to get started</p>
             </div>
           </div>
         ) : (
           <>
-            <ScrollArea className="flex-1 px-4">
-              <div className="space-y-3 py-2">
+            <ScrollArea className="flex-1 px-5">
+              <div className="space-y-2.5 py-4">
                 {items.map((item: CartItem) => (
-                  <div key={item.id} className="flex items-start gap-3 bg-white/[0.03] rounded-xl p-3 border border-white/[0.06]">
+                  <div key={item.id} className="flex items-start gap-3 bg-white/[0.02] rounded-xl p-3 border border-white/[0.05] hover:border-white/[0.08] transition-colors">
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm leading-tight text-white">{item.productName}</p>
-                      <p className="text-xs text-white/40 mt-0.5">Rs. {item.productPrice.toLocaleString()} / {item.unit}</p>
+                      <p className="font-medium text-[13px] leading-tight text-white/90">{item.productName}</p>
+                      <p className="text-[11px] text-white/30 mt-1">Rs. {item.productPrice.toLocaleString()} / {item.unit}</p>
                       <div className="flex items-center gap-2 mt-2">
-                        <Button variant="outline" size="icon" className="h-7 w-7 border-white/10 text-white/60 hover:text-white hover:bg-white/5" onClick={() => updateQuantity(item.productId, item.quantity - 1)}>
+                        <Button variant="outline" size="icon" className="h-7 w-7 border-white/[0.08] text-white/50 hover:text-white hover:bg-white/[0.04] rounded-lg" onClick={() => updateQuantity(item.productId, item.quantity - 1)}>
                           <Minus className="w-3 h-3" />
                         </Button>
-                        <span className="text-sm font-semibold w-6 text-center text-white">{item.quantity}</span>
-                        <Button variant="outline" size="icon" className="h-7 w-7 border-white/10 text-white/60 hover:text-white hover:bg-white/5" onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
+                        <span className="text-[13px] font-semibold w-6 text-center text-white">{item.quantity}</span>
+                        <Button variant="outline" size="icon" className="h-7 w-7 border-white/[0.08] text-white/50 hover:text-white hover:bg-white/[0.04] rounded-lg" onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
                           <Plus className="w-3 h-3" />
                         </Button>
                       </div>
                     </div>
                     <div className="text-right flex flex-col items-end gap-2">
-                      <p className="font-semibold text-sm text-white">Rs. {(item.productPrice * item.quantity).toLocaleString()}</p>
-                      <Button variant="ghost" size="icon" className="h-7 w-7 text-[#EF4444] hover:text-[#EF4444] hover:bg-[#EF4444]/10" onClick={() => removeItem(item.productId)}>
+                      <p className="font-semibold text-[13px] text-white">Rs. {(item.productPrice * item.quantity).toLocaleString()}</p>
+                      <Button variant="ghost" size="icon" className="h-7 w-7 text-red-400/60 hover:text-red-400 hover:bg-red-400/10 rounded-lg" onClick={() => removeItem(item.productId)}>
                         <Trash2 className="w-3.5 h-3.5" />
                       </Button>
                     </div>
@@ -65,19 +70,19 @@ export function CartSheet() {
               </div>
             </ScrollArea>
 
-            <div className="border-t border-white/[0.08] p-4 space-y-3 bg-[#111827]">
+            <div className="border-t border-white/[0.06] p-5 space-y-3 bg-[rgba(8,12,22,0.8)] backdrop-blur-md">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-white/50">Subtotal</span>
-                <span className="font-semibold text-white">Rs. {total.toLocaleString()}</span>
+                <span className="text-[13px] text-white/40">Subtotal</span>
+                <span className="font-medium text-[13px] text-white/70">Rs. {total.toLocaleString()}</span>
               </div>
-              <Separator className="bg-white/[0.08]" />
+              <Separator className="bg-white/[0.06]" />
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-white">Total</span>
-                <span className="font-black text-lg text-[var(--gold)]">Rs. {total.toLocaleString()}</span>
+                <span className="font-semibold text-[14px] text-white">Total</span>
+                <span className="price-enterprise text-[20px]">Rs. {total.toLocaleString()}</span>
               </div>
-              <div className="flex gap-2">
-                <Button variant="outline" className="flex-1 border-white/10 text-white/60 hover:text-white hover:bg-white/5" onClick={clearCart}>Clear</Button>
-                <Button className="flex-1 bg-[var(--gold)] text-black font-bold hover:bg-[var(--gold-light)] hover:shadow-[0_10px_25px_rgba(245,180,0,0.2)] transition-all" onClick={handleCheckout}>
+              <div className="flex gap-2 pt-1">
+                <Button variant="outline" className="flex-1 border-white/[0.08] text-white/40 hover:text-white hover:bg-white/[0.04] rounded-xl h-11 text-[13px]" onClick={clearCart}>Clear</Button>
+                <Button className="flex-1 bg-gradient-to-r from-[#F5B400] to-[#D49900] text-black font-bold rounded-xl h-11 text-[13px] hover:from-[#FFD44D] hover:to-[#F5B400] shadow-[0_4px_15px_rgba(245,180,0,0.2)] transition-all" onClick={handleCheckout}>
                   Checkout
                 </Button>
               </div>

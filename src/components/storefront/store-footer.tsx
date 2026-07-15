@@ -1,6 +1,6 @@
 'use client';
 
-import { Truck, Clock, Shield, Headphones } from 'lucide-react';
+import { Truck, Clock, Shield, Headphones, Crown } from 'lucide-react';
 
 const features = [
   { icon: Truck, title: 'Free Delivery', desc: 'On orders above Rs. 5,000' },
@@ -11,51 +11,69 @@ const features = [
 
 export function StoreFooter() {
   return (
-    <footer className="mt-auto border-t border-white/[0.08]">
+    <footer className="mt-auto">
       {/* Features bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {features.map((f) => (
-            <div key={f.title} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-              <div className="w-10 h-10 rounded-lg bg-[#0057D9]/10 flex items-center justify-center flex-shrink-0">
-                <f.icon className="w-5 h-5 text-[#3A8DFF]" />
+            <div key={f.title} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.1] transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#0057D9]/10 flex items-center justify-center flex-shrink-0">
+                <f.icon className="w-[18px] h-[18px] text-[#3A8DFF]" />
               </div>
               <div>
-                <p className="font-semibold text-sm text-white">{f.title}</p>
-                <p className="text-xs text-white/40">{f.desc}</p>
+                <p className="font-semibold text-[13px] text-white/90">{f.title}</p>
+                <p className="text-[11px] text-white/30">{f.desc}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
+      {/* Divider */}
+      <div className="section-divider max-w-7xl mx-auto" />
+
       {/* Main footer */}
-      <div className="border-t border-white/[0.08] bg-[#03050A]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="bg-[#03050A]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {/* Brand */}
             <div>
-              <h3 className="font-extrabold text-lg text-white">
-                ONESTOP <span className="text-[var(--gold)]">CASH & CARRY</span>
-              </h3>
-              <p className="text-sm text-white/40 mt-3 leading-relaxed">
-                Your trusted wholesale & retail store in Mansehra. Quality products at the best prices since day one.
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0057D9] to-[#003B91] flex items-center justify-center">
+                  <Crown className="w-4 h-4 text-[#F5B400]" />
+                </div>
+                <div>
+                  <p className="font-extrabold text-[14px] text-white leading-none">ONESTOP</p>
+                  <p className="text-[9px] font-bold text-[#F5B400] tracking-[0.12em] uppercase leading-none mt-0.5">Cash & Carry</p>
+                </div>
+              </div>
+              <p className="text-[13px] text-white/30 leading-relaxed max-w-xs">
+                Your trusted wholesale &amp; retail store in Mansehra. Quality products at the best prices since day one.
               </p>
             </div>
+
+            {/* Contact */}
             <div>
-              <h4 className="font-semibold mb-3 text-white">Contact Us</h4>
-              <p className="text-sm text-white/40">Mansehra, KPK, Pakistan</p>
-              <p className="text-sm text-white/40 mt-1">Phone: 0300-1234567</p>
-              <p className="text-sm text-white/40 mt-1">WhatsApp: 0300-1234567</p>
+              <h4 className="font-semibold text-[13px] text-white/80 uppercase tracking-wider mb-4">Contact Us</h4>
+              <div className="space-y-2.5">
+                <p className="text-[13px] text-white/35">Mansehra, KPK, Pakistan</p>
+                <p className="text-[13px] text-white/35">Phone: <span className="text-white/50">0300-1234567</span></p>
+                <p className="text-[13px] text-white/35">WhatsApp: <span className="text-white/50">0300-1234567</span></p>
+              </div>
             </div>
+
+            {/* Store Hours */}
             <div>
-              <h4 className="font-semibold mb-3 text-white">Store Hours</h4>
-              <p className="text-sm text-white/40">Monday - Sunday</p>
-              <p className="text-sm text-white/40 mt-1">8:00 AM - 10:00 PM</p>
+              <h4 className="font-semibold text-[13px] text-white/80 uppercase tracking-wider mb-4">Store Hours</h4>
+              <div className="space-y-2.5">
+                <p className="text-[13px] text-white/35">Monday - Sunday</p>
+                <p className="text-[13px] text-white/50 font-medium">8:00 AM - 10:00 PM</p>
+              </div>
             </div>
           </div>
-          <div className="mt-8 pt-5 border-t border-white/[0.06] text-center">
-            <p className="text-xs text-white/25">
-              &copy; {new Date().getFullYear()} Onestop Cash & Carry, Mansehra. All rights reserved.
+          <div className="mt-10 pt-6 border-t border-white/[0.05] text-center">
+            <p className="text-[11px] text-white/20">
+              &copy; {new Date().getFullYear()} Onestop Cash &amp; Carry, Mansehra. All rights reserved.
             </p>
           </div>
         </div>

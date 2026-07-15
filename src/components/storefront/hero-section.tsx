@@ -1,53 +1,60 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, MapPin, Phone, Sparkles } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section className="min-h-[85vh] flex justify-center items-center text-center relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#003B91]/60 via-transparent to-[#05070D]"></div>
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#0057D9]/20 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#F5B400]/10 rounded-full blur-[100px]"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#0057D9]/5 rounded-full blur-[150px]"></div>
+    <section className="min-h-[92vh] flex justify-center items-center text-center relative overflow-hidden hero-gradient enterprise-grid">
+      {/* Animated glow orbs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[15%] w-[700px] h-[700px] bg-[#0057D9]/15 rounded-full blur-[160px] animate-pulse" style={{ animationDuration: '6s' }} />
+        <div className="absolute bottom-[-5%] right-[10%] w-[500px] h-[500px] bg-[#F5B400]/8 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s', animationDelay: '2s' }} />
+        <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-[#003B91]/20 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '7s', animationDelay: '4s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative z-10">
-        <div className="max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-white/[0.06] backdrop-blur-sm rounded-full px-5 py-2 mb-8 border border-white/10">
-            <MapPin className="w-4 h-4 text-[var(--gold)]" />
-            <span className="text-sm font-medium text-white/80">Mansehra, KPK</span>
+        <div className="max-w-3xl mx-auto animate-fade-up">
+          {/* Enterprise badge */}
+          <div className="enterprise-badge mb-8 inline-flex">
+            <MapPin className="w-3.5 h-3.5 text-[#F5B400]" />
+            <span>Mansehra, KPK</span>
+            <span className="w-1 h-1 rounded-full bg-white/20" />
+            <span className="text-white/50">Premium Wholesale & Retail</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight">
-            <span className="gradient-text">ONESTOP</span>
-            <br />
-            <span className="text-white">CASH & CARRY</span>
+          {/* Main heading */}
+          <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-black leading-[1.05] tracking-[-0.03em]">
+            <span className="gradient-text block">ONESTOP</span>
+            <span className="text-white/90 block mt-1">CASH & CARRY</span>
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg md:text-xl text-white/60 max-w-xl mx-auto leading-relaxed">
-            Premium wholesale & retail groceries, beverages, household items and more. Best prices in Mansehra with guaranteed quality.
+          {/* Subheading */}
+          <p className="mt-6 text-base sm:text-lg md:text-xl text-white/45 max-w-xl mx-auto leading-relaxed font-light">
+            Premium wholesale &amp; retail groceries, beverages, household items and more.
+            <span className="text-white/60 font-medium"> Best prices in Mansehra</span> with guaranteed quality.
           </p>
 
-          {/* Search Box */}
-          <div className="mt-10 flex max-w-[750px] mx-auto bg-[#111827] rounded-[60px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.35)] border border-white/[0.08]">
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="flex-1 bg-transparent border-none text-white px-6 py-4 outline-none placeholder:text-white/30"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && e.currentTarget.value.trim()) {
-                  const event = new CustomEvent('navigate', { detail: { page: 'products', search: e.currentTarget.value.trim() } });
-                  window.dispatchEvent(event);
-                }
-              }}
-            />
+          {/* Premium Search Box */}
+          <div className="mt-10 flex max-w-[680px] mx-auto bg-[rgba(17,24,39,0.8)] rounded-[60px] overflow-hidden border border-[rgba(255,255,255,0.08)] backdrop-blur-md shadow-[0_25px_60px_rgba(0,0,0,0.4)] transition-shadow duration-300 hover:shadow-[0_30px_70px_rgba(0,0,0,0.5)] hover:border-[rgba(255,255,255,0.12)]">
+            <div className="flex-1 flex items-center px-6">
+              <Sparkles className="w-4 h-4 text-white/20 mr-3 shrink-0" />
+              <input
+                type="text"
+                placeholder="Search 500+ products..."
+                className="w-full bg-transparent border-none text-white py-4 outline-none placeholder:text-white/25 text-[15px]"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+                    const event = new CustomEvent('navigate', { detail: { page: 'products', search: e.currentTarget.value.trim() } });
+                    window.dispatchEvent(event);
+                  }
+                }}
+              />
+            </div>
             <button
-              className="bg-[var(--gold)] text-black px-8 font-bold hover:bg-[var(--gold-light)] transition-colors"
+              className="bg-gradient-to-r from-[#F5B400] to-[#D49900] text-black px-8 font-bold text-[14px] hover:from-[#FFD44D] hover:to-[#F5B400] transition-all duration-300 shadow-[0_4px_15px_rgba(245,180,0,0.25)]"
               onClick={() => {
-                const input = document.querySelector('input[placeholder="Search products..."]') as HTMLInputElement;
+                const input = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
                 if (input && input.value.trim()) {
                   const event = new CustomEvent('navigate', { detail: { page: 'products', search: input.value.trim() } });
                   window.dispatchEvent(event);
@@ -58,10 +65,11 @@ export function HeroSection() {
             </button>
           </div>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {/* CTAs */}
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
             <Button
               size="lg"
-              className="bg-[var(--gold)] text-black font-bold rounded-full px-8 hover:bg-[var(--gold-light)] hover:shadow-[0_15px_35px_rgba(245,180,0,0.3)] transition-all"
+              className="btn-gold rounded-[50px] px-8 h-12 text-[14px] font-bold tracking-wide"
               onClick={() => {
                 const event = new CustomEvent('navigate', { detail: { page: 'products' } });
                 window.dispatchEvent(event);
@@ -74,7 +82,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 border-white/20 text-white hover:bg-white/5 hover:border-white/30 transition-all"
+                className="rounded-[50px] px-8 h-14 border-white/[0.12] text-white/70 hover:text-white hover:bg-white/[0.04] hover:border-white/[0.2] text-[14px] font-medium transition-all"
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Call Us
@@ -83,20 +91,23 @@ export function HeroSection() {
           </div>
 
           {/* Stats */}
-          <div className="mt-14 grid grid-cols-3 gap-4 max-w-md mx-auto">
+          <div className="mt-16 grid grid-cols-3 gap-6 max-w-md mx-auto">
             {[
               { label: 'Products', value: '500+' },
-              { label: 'Happy Customers', value: '2,000+' },
-              { label: 'Years Serving', value: '5+' },
+              { label: 'Customers', value: '2,000+' },
+              { label: 'Years', value: '5+' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-2xl md:text-3xl font-black gradient-text">{stat.value}</p>
-                <p className="text-xs md:text-sm text-white/50 mt-0.5">{stat.label}</p>
+                <p className="text-2xl md:text-3xl font-black gradient-text-gold">{stat.value}</p>
+                <p className="text-[11px] text-white/35 mt-1 uppercase tracking-wider font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#05070D] to-transparent pointer-events-none" />
     </section>
   );
 }

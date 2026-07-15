@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   Menu,
   X,
+  Crown,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useViewStore } from '@/stores';
@@ -18,7 +19,6 @@ import { AdminProducts } from './admin-products';
 import { AdminOrders } from './admin-orders';
 import { AdminCategories } from './admin-categories';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 
 interface NavItem {
   id: AdminPage;
@@ -27,10 +27,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
-  { id: 'products', label: 'Products', icon: <Package className="h-5 w-5" /> },
-  { id: 'orders', label: 'Orders', icon: <ShoppingBag className="h-5 w-5" /> },
-  { id: 'categories', label: 'Categories', icon: <Tags className="h-5 w-5" /> },
+  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="h-[18px] w-[18px]" /> },
+  { id: 'products', label: 'Products', icon: <Package className="h-[18px] w-[18px]" /> },
+  { id: 'orders', label: 'Orders', icon: <ShoppingBag className="h-[18px] w-[18px]" /> },
+  { id: 'categories', label: 'Categories', icon: <Tags className="h-[18px] w-[18px]" /> },
 ];
 
 export function AdminPanel() {
@@ -63,7 +63,7 @@ export function AdminPanel() {
       {/* Mobile overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 md:hidden"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
@@ -71,28 +71,25 @@ export function AdminPanel() {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex flex-col border-r border-white/[0.08] bg-[#0C1220] transition-all duration-300 md:relative md:z-auto',
-          mobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0 md:w-16 lg:w-64'
+          'fixed inset-y-0 left-0 z-50 flex flex-col border-r border-white/[0.06] bg-[#080C16] transition-all duration-300 md:relative md:z-auto',
+          mobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0 md:w-16 lg:w-[260px]'
         )}
       >
         {/* Sidebar header */}
-        <div className="flex h-16 items-center justify-between border-b border-white/[0.08] px-4">
+        <div className="flex h-16 items-center justify-between border-b border-white/[0.06] px-4">
           <div className="flex items-center gap-3 overflow-hidden">
-            <Image
-              src="/logo.png"
-              alt="Admin"
-              width={32}
-              height={32}
-              className="rounded-lg object-contain shrink-0"
-            />
-            <span className="hidden lg:block text-base font-bold text-white whitespace-nowrap">
-              Admin Panel
-            </span>
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0057D9] to-[#003B91] flex items-center justify-center shrink-0 shadow-[0_2px_8px_rgba(0,87,217,0.25)]">
+              <Crown className="w-4 h-4 text-[#F5B400]" />
+            </div>
+            <div className="hidden lg:block whitespace-nowrap">
+              <p className="text-[13px] font-bold text-white leading-none">ONESTOP</p>
+              <p className="text-[9px] font-semibold text-white/30 uppercase tracking-widest leading-none mt-0.5">Admin Panel</p>
+            </div>
           </div>
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden h-8 w-8 text-white/60 hover:text-white"
+            className="md:hidden h-8 w-8 text-white/40 hover:text-white rounded-lg"
             onClick={() => setMobileMenuOpen(false)}
           >
             <X className="h-4 w-4" />
@@ -100,26 +97,28 @@ export function AdminPanel() {
         </div>
 
         {/* Back to store link */}
-        <div className="px-2 pt-3 pb-1">
+        <div className="px-3 pt-4 pb-1">
           <Button
             variant="ghost"
-            className="w-full justify-start gap-3 text-white/40 hover:text-white hover:bg-white/5"
+            className="w-full justify-start gap-3 text-white/30 hover:text-white/60 hover:bg-white/[0.03] rounded-xl h-9 text-[13px]"
             onClick={() => setView('storefront')}
           >
             <ArrowLeft className="h-4 w-4 shrink-0" />
-            <span className="hidden lg:block text-sm">Back to Store</span>
+            <span className="hidden lg:block">Back to Store</span>
           </Button>
         </div>
 
         {/* Navigation items */}
-        <nav className="flex-1 px-2 py-2 space-y-1">
+        <nav className="flex-1 px-3 py-2 space-y-0.5">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
               className={cn(
-                'flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                adminPage === item.id ? 'admin-nav-active' : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04]'
+                'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-all duration-200',
+                adminPage === item.id
+                  ? 'admin-nav-active'
+                  : 'text-white/30 hover:text-white/60 hover:bg-white/[0.03]'
               )}
             >
               <span className="shrink-0">{item.icon}</span>
@@ -129,18 +128,18 @@ export function AdminPanel() {
         </nav>
 
         {/* Sidebar footer */}
-        <div className="border-t border-white/[0.08] p-3">
-          <div className="hidden lg:flex items-center gap-3">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0057D9]/20 text-[#3A8DFF] text-xs font-bold">
+        <div className="border-t border-white/[0.06] p-3">
+          <div className="hidden lg:flex items-center gap-3 px-2">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#0057D9]/30 to-[#0057D9]/10 text-[#3A8DFF] text-[11px] font-bold border border-[#0057D9]/20">
               A
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-medium text-white truncate">Admin</p>
-              <p className="text-xs text-white/30 truncate">manager@onestop.com</p>
+              <p className="text-[13px] font-medium text-white/80 truncate">Admin</p>
+              <p className="text-[11px] text-white/25 truncate">manager@onestop.com</p>
             </div>
           </div>
           <div className="lg:hidden flex justify-center">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0057D9]/20 text-[#3A8DFF] text-xs font-bold">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#0057D9]/30 to-[#0057D9]/10 text-[#3A8DFF] text-[11px] font-bold border border-[#0057D9]/20">
               A
             </div>
           </div>
@@ -150,19 +149,19 @@ export function AdminPanel() {
       {/* Main content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="flex h-16 shrink-0 items-center gap-4 border-b border-white/[0.08] bg-[#0C1220] px-4 lg:px-6">
+        <header className="flex h-16 shrink-0 items-center gap-4 border-b border-white/[0.06] bg-[rgba(8,12,22,0.8)] backdrop-blur-md px-4 lg:px-6">
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden h-9 w-9 text-white/60 hover:text-white"
+            className="md:hidden h-9 w-9 text-white/40 hover:text-white rounded-lg"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Menu className="h-5 w-5" />
           </Button>
           <div className="flex-1">
-            <h1 className="text-lg font-semibold text-white capitalize">{adminPage}</h1>
+            <h1 className="text-[15px] font-semibold text-white/90 capitalize">{adminPage}</h1>
           </div>
-          <div className="hidden sm:flex items-center gap-2 text-sm text-white/40">
+          <div className="hidden sm:flex items-center gap-2 text-[12px] text-white/25">
             <span>Onestop Cash and Carry</span>
           </div>
         </header>
