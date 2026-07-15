@@ -14,6 +14,7 @@ interface Product {
   stock: number;
   unit: string;
   isFeatured: boolean;
+  image?: string | null;
   category?: { name: string; slug: string } | null;
 }
 
@@ -37,21 +38,29 @@ export function ProductCard({ product }: ProductCardProps) {
         setStorefrontPage('product-detail');
       }}
     >
-      {/* Image area with gradient placeholder */}
-      <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+      {/* Image area */}
+      <div className="relative h-40 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center overflow-hidden">
         {product.isFeatured && (
-          <Badge className="absolute top-2 left-2 bg-amber-500 text-white text-[10px] px-1.5 py-0">
+          <Badge className="absolute top-2 left-2 bg-amber-500 text-white text-[10px] px-1.5 py-0 z-10">
             <Star className="w-2.5 h-2.5 mr-0.5" /> Featured
           </Badge>
         )}
         {discount > 0 && (
-          <Badge className="absolute top-2 right-2 bg-red-500 text-white text-[10px] px-1.5 py-0">
+          <Badge className="absolute top-2 right-2 bg-red-500 text-white text-[10px] px-1.5 py-0 z-10">
             -{discount}%
           </Badge>
         )}
-        <div className="text-4xl font-bold text-primary/20">
-          {product.name.charAt(0)}
-        </div>
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="text-4xl font-bold text-primary/20">
+            {product.name.charAt(0)}
+          </div>
+        )}
       </div>
 
       <CardContent className="p-3 flex flex-col flex-1 gap-1.5">

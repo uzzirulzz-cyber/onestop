@@ -1,18 +1,22 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+  export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const category = searchParams.get('category');
     const search = searchParams.get('search');
     const featured = searchParams.get('featured');
 
+    // For dynamic route: if there's a slug-like path segment, use the product lookup
+    const urlPath = new URL(req.url).pathname;
+    const segments = urlPath.split('/').filter(Boolean);
+    const possibleSlug = segments.length > 1 ? segments[segments.length - 1] : null;
+
     const where: Record<string, unknown> = { isActive: true };
 
     if (category && category !== 'all') {
-      // Support both category ID and slug
-      if (category.length > 20) {
+      if (category.length > 20 || !category.includes('/')) {
         where.categoryId = category;
       } else {
         where.category = { slug: category };
@@ -27,6 +31,16 @@ export async function GET(req: NextRequest) {
         { description: { contains: search } },
         { sku: { contains: search } },
       ];
+    }
+
+    // If there's a possible slug in the URL (not just numbers), do a product lookup by slug
+    if (possibleSlug && !/^\d+$/.test(possibleSlug)) {
+      const product = await db.product.findFirst({
+        where: { slug: possibleSlug, isActive: true },
+      });
+      if (product) {
+        return NextResponse.json(product);
+      }
     }
 
     const products = await db.product.findMany({

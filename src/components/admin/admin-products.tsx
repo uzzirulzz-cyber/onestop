@@ -59,6 +59,7 @@ import {
   Star,
   Eye,
   EyeOff,
+  Package,
 } from 'lucide-react';
 
 // --- Types ---
