@@ -73,7 +73,7 @@ const categorySchema = z.object({
   name: z.string().min(1, 'Name is required').max(100, 'Name too long'),
   description: z.string().max(500, 'Description too long').optional().or(z.literal('')),
   image: z.string().max(500, 'Image URL too long').optional().or(z.literal('')),
-  sortOrder: z.coerce.number().int().min(0, 'Sort order must be non-negative'),
+  sortOrder: z.number().int().min(0, 'Sort order must be non-negative'),
   isActive: z.boolean(),
 });
 
@@ -106,7 +106,7 @@ export function AdminCategories() {
     watch,
     formState: { errors },
   } = useForm<CategoryFormValues>({
-    resolver: zodResolver(categorySchema),
+    resolver: zodResolver(categorySchema) as any,
     defaultValues: {
       name: '',
       description: '',

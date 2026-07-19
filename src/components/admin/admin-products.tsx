@@ -92,13 +92,14 @@ interface Category {
 const productSchema = z.object({
   name: z.string().min(1, 'Name is required').max(200, 'Name too long'),
   description: z.string().max(2000, 'Description too long').optional().or(z.literal('')),
-  price: z.coerce.number().min(0, 'Price must be positive'),
-  compareAtPrice: z.coerce.number().min(0).optional().or(z.nan().transform(() => undefined)),
+  price: z.number().min(0, 'Price must be positive'),
+  compareAtPrice: z.number().min(0).optional(),
   sku: z.string().max(100).optional().or(z.literal('')),
   barcode: z.string().max(100).optional().or(z.literal('')),
-  stock: z.coerce.number().int().min(0, 'Stock must be non-negative'),
+  stock: z.number().int().min(0, 'Stock must be non-negative'),
   unit: z.string().min(1, 'Unit is required').max(20),
   categoryId: z.string().optional().or(z.literal('')),
+  image: z.string().max(500, 'Image URL too long').optional().or(z.literal('')),
   isFeatured: z.boolean(),
   isActive: z.boolean(),
 });
@@ -131,7 +132,7 @@ export function AdminProducts() {
     watch,
     formState: { errors },
   } = useForm<ProductFormValues>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(productSchema) as any,
     defaultValues: {
       name: '',
       description: '',
@@ -619,6 +620,9 @@ export function AdminProducts() {
             <div className="space-y-2">
               <Label htmlFor="image">Image URL</Label>
               <Input id="image" {...register('image')} placeholder="https://..." />
+              {errors.image && (
+                <p className="text-sm text-destructive">Invalid URL</p>
+              )}
             </div>
 
             <div className="flex items-center justify-between rounded-lg border border-border p-3">
